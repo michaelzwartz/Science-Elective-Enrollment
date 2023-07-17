@@ -35,7 +35,7 @@ SELECT COUNT(student_stateID), courseName, avg("percent")
 		--WHERE Required = 0)
 	GROUP BY courseName
 	ORDER BY COUNT(student_stateID) DESC;
-*/
+
 
 SELECT ID, courseName, score, avg("percent") 
 	FROM transcript
@@ -44,36 +44,14 @@ SELECT ID, courseName, score, avg("percent")
 	--ID IN (SELECT ID FROM science_grades20_22)
 	GROUP BY ID, courseName, score
 	ORDER BY avg("percent") DESC;
-	
-UPDATE transcript
-SET "percent" = 95
-	WHERE "percent" IS NULL
-	AND score = 'A'
+*/
 
-UPDATE transcript
-SET "percent" = 85
-	WHERE "percent" IS NULL
-	AND score = 'B'
 
-UPDATE transcript
-SET "percent" = 75
-	WHERE "percent" IS NULL
-	AND score = 'C'
+select courseName, courseNumber 
+	into #courses
+	from transcript;
 
-UPDATE transcript
-SET "percent" = 65
-	WHERE "percent" IS NULL
-	AND score = 'D'
-	OR score = 'P'
-
-UPDATE transcript
-SET "percent" = 50
-	WHERE "percent" IS NULL
-	AND score = 'F'
-
-UPDATE transcript
-SET "percent" = 50
-	WHERE "percent" IS NULL
-	AND score = 'I'
-
-select * from transcript;
+select DISTINCT(courseNumber), CourseName, COUNT(courseNumber) from #courses 
+	where courseName LIKE ('Alg%')
+	GROUP BY courseNumber, CourseName
+	ORDER BY COUNT(courseNumber) DESC

@@ -33,8 +33,8 @@ SET "percent" = 50
 	WHERE "percent" IS NULL
 	AND score = 'I'
 
---create a temp table for core classes, use temp tables to join 
---for one table containing all core classes and grades
+--create a temp table for core classes, use temp tables to join into
+--one table containing all core classes and grades
 
 SELECT ID, courseName, avg("percent") as math9_score
 	INTO #math9
@@ -96,7 +96,7 @@ SELECT ID, courseName, avg("percent") as hist9_score
 
 EXEC tempdb.sys.sp_rename N'#hist9.courseName', N'hist9', N'COLUMN';
 
-
+--Join temp tables into one table core grades based on ID numbers
 SELECT #math9.*, #math10.math10, #math10.math10_score,
 	#eng9.eng9, #eng9.eng9_score, #eng10.eng10, #eng10.eng10_score,
 	#hist9.hist9, #hist9.hist9_score, science_grades.bio9, 
