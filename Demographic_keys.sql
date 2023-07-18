@@ -1,6 +1,27 @@
 USE science_course_study
 
 /*
+--create a temp table for student ID's and school during the 2021 year
+-- No remote option during 2021
+SELECT ID, schoolName 
+	INTO #school_name
+	FROM transcript
+	WHERE startYear = 2021
+
+--Add a schoolName column to deographics table
+ALTER TABLE demographics 
+	ADD schoolName varchar(50)
+
+--Update demographics table using join from temp table
+update demographics
+set demographics.schoolName = #school_name.schoolName
+from demographics
+    LEFT join #school_name 
+		ON demographics.Student_ID = #school_name.ID
+-------------------------------------------------------------
+*/
+
+/*
 --Update the Gender to coded 0 = female, 1 = male, 2 = Non-binary
 UPDATE demographics
 SET Gender = 0
